@@ -297,7 +297,6 @@ export default function YouTubeClone() {
         className="w-64 overflow-y-auto border-r border-border"
         style={{
           position: "fixed",
-          background: "white",
         }}
       >
         <ThumbnailTesterSidebar
