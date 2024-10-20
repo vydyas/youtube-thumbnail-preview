@@ -92,72 +92,105 @@ const initialVideos = [
   },
   {
     id: 3,
-    title: "Life Of SUSHANT SINGH RAJPUT: Murder Mystery | Telugu | Aye Jude",
+    title:
+      "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
     thumbnail:
       "https://i.ytimg.com/vi/477HojgS-4w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAH3EmqqdUkUW5GwhXaX_lZ_V8Hkw",
-    channel: "Aye Jude",
-    views: "38K views",
-    time: "2 hours ago",
-    duration: "17:37",
+    channel: "Rahul Jain",
+    views: "311 views",
+    time: "2 minutes ago",
+    duration: "14:58",
   },
   {
     id: 4,
-    title:
-      "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
+    title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
     thumbnail:
-      "https://i.ytimg.com/vi/477HojgS-4w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAH3EmqqdUkUW5GwhXaX_lZ_V8Hkw",
-    channel: "Rahul Jain",
-    views: "311 views",
-    time: "2 minutes ago",
-    duration: "14:58",
+      "https://i.ytimg.com/vi/daURe-AI5qQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDiCTw_0DJEd214zxQJBOKxD4Otvw",
+    channel: "Telugu Traveller",
+    views: "17K views",
+    time: "11 hours ago",
+    duration: "37:17",
   },
   {
     id: 5,
-    title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
+    title:
+      "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
     thumbnail:
-      "https://i.ytimg.com/vi/gIzchqgIOes/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBhgu5_HGOwU1VVPNT4y6UbzWvjKA",
-    channel: "Telugu Traveller",
-    views: "17K views",
-    time: "11 hours ago",
-    duration: "37:17",
+      "https://i.ytimg.com/vi/LqijLpR4IU0/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLACpquIGtMIsDsk5j3dqV_UW1z3ug",
+    channel: "Rahul Jain",
+    views: "311 views",
+    time: "2 minutes ago",
+    duration: "14:58",
   },
   {
     id: 6,
-    title:
-      "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
-    thumbnail:
-      "https://i.ytimg.com/vi/477HojgS-4w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAH3EmqqdUkUW5GwhXaX_lZ_V8Hkw",
-    channel: "Rahul Jain",
-    views: "311 views",
-    time: "2 minutes ago",
-    duration: "14:58",
-  },
-  {
-    id: 7,
     title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
     thumbnail:
-      "https://i.ytimg.com/vi/gIzchqgIOes/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBhgu5_HGOwU1VVPNT4y6UbzWvjKA",
+      "https://i.ytimg.com/vi/OzoHX0T8g78/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCccAqflh7GOe4CUdP-En3hQoY9EQ",
     channel: "Telugu Traveller",
     views: "17K views",
     time: "11 hours ago",
     duration: "37:17",
   },
   {
-    id: 8,
+    id: 7,
     title:
       "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
     thumbnail:
-      "https://i.ytimg.com/vi/477HojgS-4w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAH3EmqqdUkUW5GwhXaX_lZ_V8Hkw",
+      "https://i9.ytimg.com/vi/0BDt08x-De8/hq720_custom_2.jpg?sqp=CLi01bgG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAhhEkawYi4jgsMGFhpGL1lOip9QA",
     channel: "Rahul Jain",
     views: "311 views",
     time: "2 minutes ago",
     duration: "14:58",
   },
   {
-    id: 9,
+    id: 8,
     title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
     thumbnail:
-      "https://i.ytimg.com/vi/gIzchqgIOes/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBhgu5_HGOwU1VVPNT4y6UbzWvjKA",
+      "https://i9.ytimg.com/vi/el_XXasyO-U/hq720_custom_1.jpg?sqp=CLi01bgG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLApxrbnuj5oxxjj_Ch3Aq6ivLOtxw",
+    channel: "Telugu Traveller",
+    views: "17K views",
+    time: "11 hours ago",
+    duration: "37:17",
+  },
+
+  {
+    id: 9,
+    title:
+      "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
+    thumbnail:
+      "https://i.ytimg.com/vi/h6yLvBwX0Fc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBMQ5Quc8iHcukqTrnnPo8uazn9xA",
+    channel: "Rahul Jain",
+    views: "311 views",
+    time: "2 minutes ago",
+    duration: "14:58",
+  },
+  {
+    id: 10,
+    title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
+    thumbnail:
+      "https://i.ytimg.com/vi/N9pp1ZGSx_g/hq720.jpg?sqp=-oaymwE2CNAFEJQDSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_giAAtAFigIMCAAQARhGIGUoVjAP&rs=AOn4CLCb32i1wqxaDuo0-evYJHHMHT0AaQ",
+    channel: "Telugu Traveller",
+    views: "17K views",
+    time: "11 hours ago",
+    duration: "37:17",
+  },
+  {
+    id: 11,
+    title:
+      "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
+    thumbnail:
+      "https://i.ytimg.com/vi/-yIsQPp31L0/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAt7myNKOxlkswac4nvHwlB-LFoMw",
+    channel: "Rahul Jain",
+    views: "311 views",
+    time: "2 minutes ago",
+    duration: "14:58",
+  },
+  {
+    id: 12,
+    title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
+    thumbnail:
+      "https://i.ytimg.com/vi/w-9S-NBVXwE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAFvHREtcS7sx1v-cfBA43Aghg2xA",
     channel: "Telugu Traveller",
     views: "17K views",
     time: "11 hours ago",
@@ -260,7 +293,13 @@ export default function YouTubeClone() {
 
   return (
     <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
-      <aside className="w-64 overflow-y-auto border-r border-border">
+      <aside
+        className="w-64 overflow-y-auto border-r border-border"
+        style={{
+          position: "fixed",
+          background: "white",
+        }}
+      >
         <ThumbnailTesterSidebar
           thumbnails={thumbnails}
           onImageUpload={handleImageUpload}
@@ -271,7 +310,12 @@ export default function YouTubeClone() {
           onRandomize={randomizeVideos}
         />
       </aside>
-      <main className="flex-1 overflow-auto  p-10 bg-muted flex justify-center">
+      <main
+        className="flex-1 overflow-auto p-10 bg-muted flex justify-center"
+        style={{
+          marginLeft: "255px",
+        }}
+      >
         <main className="bg-background">
           <div
             className={`transition-all duration-300 ease-in-out ${
