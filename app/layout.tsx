@@ -42,10 +42,11 @@ export default function RootLayout({
             gtag('config', 'G-XY4H2C61EY');
           `}
         </Script>
+
         <Script
           defer
-          data-website-id="67077c800a52037e0fc2f48c"
-          data-domain="formatjson.io"
+          data-website-id="67155d4bf634e40283a62987"
+          data-domain="youtube-thumbnail-preview.vercel.app"
           src="https://datafa.st/js/script.js"
         ></Script>
         {children}
