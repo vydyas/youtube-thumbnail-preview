@@ -137,7 +137,7 @@ const initialVideos = [
     title:
       "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
     thumbnail:
-      "https://i9.ytimg.com/vi/0BDt08x-De8/hq720_custom_2.jpg?sqp=CLi01bgG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAhhEkawYi4jgsMGFhpGL1lOip9QA",
+      "https://i.ytimg.com/vi/vSJsz7tNuyU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC5qpJNLqxLkMKA3WbREAmXV3AuHg",
     channel: "Rahul Jain",
     views: "311 views",
     time: "2 minutes ago",
@@ -147,7 +147,7 @@ const initialVideos = [
     id: 8,
     title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
     thumbnail:
-      "https://i9.ytimg.com/vi/el_XXasyO-U/hq720_custom_1.jpg?sqp=CLi01bgG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLApxrbnuj5oxxjj_Ch3Aq6ivLOtxw",
+      "https://i.ytimg.com/vi/oCqkVZVPOe8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAZT4C8DpCAjlTBoTEgA--0cX6Rnw",
     channel: "Telugu Traveller",
     views: "17K views",
     time: "11 hours ago",
