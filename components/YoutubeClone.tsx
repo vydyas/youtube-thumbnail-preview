@@ -14,7 +14,6 @@ import {
   Smartphone,
   Shuffle,
   Dice5,
-  X,
   Upload,
   PlayCircleIcon,
 } from "lucide-react";
@@ -39,6 +38,7 @@ import dynamic from "next/dynamic";
 import { AuthSidebar } from "@/components/AuthSidebar";
 import { useUser } from "@clerk/nextjs";
 import { ImageUploadArea } from "@/components/image-upload-area";
+import { AnimatedThumbnail } from "@/components/animated-thumbnail";
 
 const LazyVideoCard = dynamic(() => import("./VideoCard"), {
   loading: () => <VideoCardSkeleton />,
@@ -227,7 +227,23 @@ export default function YouTubeClone() {
   const { theme, setTheme } = useTheme();
   const [currentView, setCurrentView] = useState<
     "desktop" | "tablet" | "mobile"
-  >("desktop");
+  >(() => {
+    if (typeof window !== "undefined") {
+      return (
+        (localStorage.getItem("currentView") as
+          | "desktop"
+          | "tablet"
+          | "mobile") || "tablet"
+      );
+    }
+    return "tablet"; // Default to tablet for server-side rendering
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("currentView", currentView);
+    }
+  }, [currentView]);
 
   useEffect(() => {
     const loadVideos = async () => {
@@ -244,11 +260,12 @@ export default function YouTubeClone() {
         },
       ]);
       setLoading(false);
+      setTheme("dark");
     };
     loadVideos();
   }, []);
 
-  const handleDeleteThumbnail = (id: number) => {
+  const handleDeleteThumbnail = (id: number | string) => {
     setThumbnails((prevThumbnails) =>
       prevThumbnails.filter((thumbnail) => thumbnail.id !== id)
     );
@@ -457,8 +474,7 @@ interface ThumbnailTesterSidebarProps {
   setCurrentView: React.Dispatch<
     React.SetStateAction<"desktop" | "tablet" | "mobile">
   >;
-  onDeleteThumbnail: (id: number) => void;
-
+  onDeleteThumbnail: (id: number | string) => void;
   onShuffle: () => void;
   onRandomize: () => void;
 }
@@ -533,7 +549,7 @@ function ThumbnailTesterSidebar({
 
         <h2 className="text-lg font-semibold mb-2">Thumbnails</h2>
 
-        <div className="grid grid-cols-2 gap-2 mb-4">
+        <div className="grid grid-cols-2 gap-5 mb-4">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Card className="relative cursor-pointer flex items-center justify-center">
@@ -583,24 +599,14 @@ function ThumbnailTesterSidebar({
               </Button>
             </DialogContent>
           </Dialog>
-          {thumbnails.slice(0, 3).map((thumbnail) => (
-            <Card key={thumbnail.id} className="relative overflow-hidden">
-              <CardContent className="p-0">
-                <img
-                  src={thumbnail.image}
-                  alt={thumbnail.title}
-                  className="w-full h-full object-cover"
-                />
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="absolute top-1 right-1 h-6 w-6 bg-background/80 hover:bg-background rounded-full"
-                  onClick={() => onDeleteThumbnail(thumbnail.id)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
+          {thumbnails.map((thumbnail) => (
+            <AnimatedThumbnail
+              key={thumbnail.id}
+              id={thumbnail.id}
+              image={thumbnail.image}
+              title={thumbnail.title}
+              onDelete={onDeleteThumbnail}
+            />
           ))}
         </div>
 

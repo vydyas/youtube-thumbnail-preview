@@ -58,7 +58,12 @@ export default function RootLayout({
             data-domain="youtube-thumbnail-preview.vercel.app"
             src="https://datafa.st/js/script.js"
           ></Script>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
           </ThemeProvider>
         </body>

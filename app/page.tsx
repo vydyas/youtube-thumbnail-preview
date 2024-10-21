@@ -1,5 +1,18 @@
-import YouTubeClone from "@/components/YoutubeClone";
+"use client";
 
-export default function Page({ params }: { params: { rest: string[] } }) {
+import YouTubeClone from "@/components/YoutubeClone";
+import { useEffect, useState } from "react";
+
+export default function Page() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   return <YouTubeClone />;
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -67,7 +69,7 @@ export function ImageUploadArea({
             onClick={() => document.getElementById("fileInput")?.click()}
             disabled={disabled}
           >
-            Select Image from your Computer
+            Select am image from your computer
           </Button>
         </div>
         <input
