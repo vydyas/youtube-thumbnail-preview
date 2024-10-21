@@ -36,6 +36,9 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import dynamic from "next/dynamic";
+import { AuthSidebar } from "@/components/AuthSidebar";
+import { useUser } from "@clerk/nextjs";
+import { ImageUploadArea } from "@/components/image-upload-area";
 
 const LazyVideoCard = dynamic(() => import("./VideoCard"), {
   loading: () => <VideoCardSkeleton />,
@@ -294,7 +297,7 @@ export default function YouTubeClone() {
   return (
     <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
       <aside
-        className="w-64 overflow-y-auto border-r border-border"
+        className="w-64 overflow-y-auto border-r border-border h-full"
         style={{
           position: "fixed",
         }}
@@ -474,19 +477,13 @@ function ThumbnailTesterSidebar({
   );
   const [image, setImage] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        setImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  const { isSignedIn } = useUser();
 
   const handleUpload = () => {
+    if (!isSignedIn) {
+      alert("Please sign in to upload thumbnails");
+      return;
+    }
     if (title && image) {
       onImageUpload(title, image);
       setTitle("Some Random Title Which Is Temporary");
@@ -495,110 +492,135 @@ function ThumbnailTesterSidebar({
     }
   };
 
+  const handleFileSelect = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      setImage(e.target?.result as string);
+      handleUpload();
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
-    <div className="p-4 flex flex-col">
-      <div className="flex items-center mb-6">
-        <div className="w-8 h-8 rounded-lg mr-2">
-          <PlayCircleIcon className="w-8 h-8" />
+    <div className="p-4 flex flex-col justify-between h-full">
+      <div className="flex flex-col">
+        <div className="flex items-center mb-6">
+          <div className="w-8 h-8 rounded-lg mr-2">
+            <PlayCircleIcon className="w-8 h-8" />
+          </div>
+          <h1 className="text-lg font-bold">Thumbnails Preview</h1>
         </div>
-        <h1 className="text-lg font-bold">Thumbnails Preview</h1>
-      </div>
 
-      <Tabs
-        value={currentView}
-        onValueChange={(value) =>
-          setCurrentView(value as "desktop" | "tablet" | "mobile")
-        }
-        className="w-full mb-4"
-      >
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="desktop">
-            <Monitor className="h-5 w-5 mr-2" />
-          </TabsTrigger>
-          <TabsTrigger value="tablet">
-            <Tablet className="h-5 w-5 mr-2" />
-          </TabsTrigger>
-          <TabsTrigger value="mobile">
-            <Smartphone className="h-5 w-5 mr-2" />
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
+        <Tabs
+          value={currentView}
+          onValueChange={(value) =>
+            setCurrentView(value as "desktop" | "tablet" | "mobile")
+          }
+          className="w-full mb-4"
+        >
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="desktop">
+              <Monitor className="h-5 w-5 mr-2" />
+            </TabsTrigger>
+            <TabsTrigger value="tablet">
+              <Tablet className="h-5 w-5 mr-2" />
+            </TabsTrigger>
+            <TabsTrigger value="mobile">
+              <Smartphone className="h-5 w-5 mr-2" />
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
 
-      <h2 className="text-lg font-semibold mb-2">Thumbnails</h2>
+        <h2 className="text-lg font-semibold mb-2">Thumbnails</h2>
 
-      <div className="grid grid-cols-2 gap-2 mb-4">
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Card className="relative cursor-pointer flex items-center justify-center">
-              <CardContent className="p-0">
-                <div className="h-14 flex items-center justify-center border-muted-foreground rounded-lg">
-                  <Upload className="h-6 w-6 text-muted-foreground" />
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Card className="relative cursor-pointer flex items-center justify-center">
+                <CardContent className="p-0">
+                  <div className="h-14 flex items-center justify-center border-muted-foreground rounded-lg">
+                    <Upload className="h-6 w-6 text-muted-foreground" />
+                  </div>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Upload Thumbnail</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="title" className="text-right">
+                    Title
+                  </Label>
+                  <Input
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="col-span-3"
+                  />
                 </div>
+                <ImageUploadArea
+                  onFileSelect={handleFileSelect}
+                  disabled={!isSignedIn}
+                />
+                {image && (
+                  <div className="mt-4">
+                    <img
+                      src={image}
+                      alt="Selected thumbnail"
+                      className="w-20 h-14"
+                    />
+                  </div>
+                )}
+              </div>
+              <Button
+                onClick={handleUpload}
+                disabled={!isSignedIn}
+                className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
+              >
+                {isSignedIn ? "Upload" : "Sign in to Upload"}
+              </Button>
+            </DialogContent>
+          </Dialog>
+          {thumbnails.slice(0, 3).map((thumbnail) => (
+            <Card key={thumbnail.id} className="relative overflow-hidden">
+              <CardContent className="p-0">
+                <img
+                  src={thumbnail.image}
+                  alt={thumbnail.title}
+                  className="w-full h-full object-cover"
+                />
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="absolute top-1 right-1 h-6 w-6 bg-background/80 hover:bg-background rounded-full"
+                  onClick={() => onDeleteThumbnail(thumbnail.id)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
               </CardContent>
             </Card>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Upload Thumbnail</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="title" className="text-right">
-                  Title
-                </Label>
-                <Input
-                  id="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="image" className="text-right">
-                  Image
-                </Label>
-                <Input
-                  id="image"
-                  type="file"
-                  onChange={handleFileChange}
-                  className="col-span-3"
-                />
-              </div>
-            </div>
-            <Button onClick={handleUpload}>Upload</Button>
-          </DialogContent>
-        </Dialog>
-        {thumbnails.slice(0, 3).map((thumbnail) => (
-          <Card key={thumbnail.id} className="relative overflow-hidden">
-            <CardContent className="p-0">
-              <img
-                src={thumbnail.image}
-                alt={thumbnail.title}
-                className="w-full h-full object-cover"
-              />
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute top-1 right-1 h-6 w-6 bg-background/80 hover:bg-background rounded-full"
-                onClick={() => onDeleteThumbnail(thumbnail.id)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="flex space-x-2 mb-4">
-        <Button variant="outline" className="flex-1" onClick={onShuffle}>
-          <Shuffle className="mr-2 h-4 w-4" />
-          Shuffle
+        <div className="flex space-x-2 mb-4">
+          <Button
+            variant="outline"
+            onClick={onShuffle}
+            className="flex-1 bg-gradient-to-r from-pink-500 to-yellow-500 hover:from-pink-600 hover:to-yellow-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
+          >
+            <Shuffle className="mr-2 h-4 w-4" />
+            Shuffle
+          </Button>
+        </div>
+        <Button variant="outline" className="mb-4" onClick={onRandomize}>
+          <Dice5 className="mr-2 h-4 w-4" />
+          Randomized
         </Button>
       </div>
-      <Button variant="outline" className="mb-4" onClick={onRandomize}>
-        <Dice5 className="mr-2 h-4 w-4" />
-        Randomized
-      </Button>
+
+      <AuthSidebar />
     </div>
   );
 }

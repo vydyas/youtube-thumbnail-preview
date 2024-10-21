@@ -1,12 +1,5 @@
-"use client";
+import YouTubeClone from "@/components/YoutubeClone";
 
-import { ThemeProvider } from "next-themes";
-import YouTubeClone from "../components/YoutubeClone";
-
-export default function Home() {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <YouTubeClone />
-    </ThemeProvider>
-  );
+export default function Page({ params }: { params: { rest: string[] } }) {
+  return <YouTubeClone />;
 }
