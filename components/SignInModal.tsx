@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { SignIn, SignInButton } from "@clerk/nextjs";
+import { SignInButton } from "@clerk/nextjs";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 interface SignInModalProps {
