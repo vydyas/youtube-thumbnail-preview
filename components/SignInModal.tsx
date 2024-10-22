@@ -1,8 +1,9 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { SignIn } from "@clerk/nextjs";
+import { SignIn, SignInButton } from "@clerk/nextjs";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 interface SignInModalProps {
   children: ReactNode;
 }
@@ -14,16 +15,27 @@ export function SignInModal({ children }: SignInModalProps) {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
-        <SignIn
-          afterSignInUrl="/"
+        {/* <SignIn afterSignInUrl="/" routing="hash"></SignIn> */}
+        {/* <SignIn
           routing="hash"
+          redirectUrl="/"
+          afterSignInUrl="/"
           appearance={{
             elements: {
-              footerActionLink: "hidden",
-              socialButtonsBlockButton: "hidden",
+              formButtonPrimary:
+                "bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600 transition-all duration-200 ease-in-out transform hover:scale-105",
             },
           }}
-        ></SignIn>
+        /> */}
+
+        <SignInButton>
+          <Button
+            variant="outline"
+            className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
+          >
+            Sign In With Google / Github
+          </Button>
+        </SignInButton>
       </DialogContent>
     </Dialog>
   );

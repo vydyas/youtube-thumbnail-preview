@@ -4,6 +4,7 @@ const publicRoutes = createRouteMatcher([
   "/",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/sso-callback(.*)", // Add this line
   "/(.*)", // This allows all routes to be public, adjust as needed
 ]);
 

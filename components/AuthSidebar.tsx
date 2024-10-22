@@ -1,7 +1,6 @@
 "use client";
 
-import { useUser, UserButton } from "@clerk/nextjs";
-import { SignInModal } from "@/components/SignInModal";
+import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 export function AuthSidebar() {
@@ -9,14 +8,14 @@ export function AuthSidebar() {
 
   if (!isSignedIn) {
     return (
-      <SignInModal>
+      <SignInButton>
         <Button
           variant="outline"
           className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
         >
-          Sign In With Email
+          Sign In With Google / Github
         </Button>
-      </SignInModal>
+      </SignInButton>
     );
   }
 
