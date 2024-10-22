@@ -232,6 +232,19 @@ export default function YouTubeClone() {
           image:
             "https://i.ytimg.com/vi/-Ca387s-Tg8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAw_S4oVknCA-3xter1PssXvnwZdw",
         },
+        {
+          id: 2,
+          title: "Switzerland Budget Trip Itinerary | Telugu Traveller",
+          image:
+            "https://i.ytimg.com/vi/jQMr3059Yyg/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDItBkUNUDxolzl3iQO7bFVkVgN5Q",
+        },
+        {
+          id: 3,
+          title:
+            "Time to Buy These 5 Bluechip Stocks in this Volatile Market? Rahul Jain Analysis",
+          image:
+            "https://i.ytimg.com/vi/477HojgS-4w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAH3EmqqdUkUW5GwhXaX_lZ_V8Hkw",
+        },
       ]);
       setLoading(false);
     };
