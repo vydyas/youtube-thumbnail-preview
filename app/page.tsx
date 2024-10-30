@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Youtube,
   Smartphone,
   Tablet,
   Monitor,
@@ -18,7 +17,6 @@ import {
 } from "lucide-react";
 
 export default function LandingPage() {
-  const [activeTab, setActiveTab] = useState("desktop");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -86,22 +84,13 @@ export default function LandingPage() {
         >
           <Tabs defaultValue="desktop" className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-4">
-              <TabsTrigger
-                value="desktop"
-                onClick={() => setActiveTab("desktop")}
-              >
+              <TabsTrigger value="desktop">
                 <Monitor className="mr-2" /> Desktop
               </TabsTrigger>
-              <TabsTrigger
-                value="tablet"
-                onClick={() => setActiveTab("tablet")}
-              >
+              <TabsTrigger value="tablet">
                 <Tablet className="mr-2" /> Tablet
               </TabsTrigger>
-              <TabsTrigger
-                value="mobile"
-                onClick={() => setActiveTab("mobile")}
-              >
+              <TabsTrigger value="mobile">
                 <Smartphone className="mr-2" /> Mobile
               </TabsTrigger>
             </TabsList>
@@ -216,7 +205,7 @@ export default function LandingPage() {
                 size="lg"
                 className="bg-red-600 hover:bg-red-700 text-white w-full rounded-full"
               >
-                Sign Up Now - It's Free!
+                Sign Up Now - It&apos;s Free!
               </Button>
             </CardContent>
           </Card>
@@ -241,7 +230,7 @@ export default function LandingPage() {
                 </h4>
                 <p className="text-gray-600">
                   Optimize your thumbnails to attract more viewers and increase
-                  your video's visibility on YouTube.
+                  your video&apos;s visibility on YouTube.
                 </p>
               </CardContent>
             </Card>

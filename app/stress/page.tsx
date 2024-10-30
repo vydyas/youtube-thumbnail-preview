@@ -64,9 +64,10 @@ export default function ConfettiStressRelief() {
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // Initialize AudioContext and load audio
     audioContextRef.current = new (window.AudioContext ||
-      (window as any).webkitAudioContext)();
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext)();
+
     fetch("/pop.mp3")
       .then((response) => response.arrayBuffer())
       .then((arrayBuffer) =>
