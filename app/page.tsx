@@ -81,7 +81,7 @@ export default function LandingPage() {
           variants={fadeIn}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Tabs defaultValue="desktop" className="w-full">
+          <Tabs defaultValue="desktop" className="w-full max-w-3xl mx-auto">
             <TabsList className="grid w-full grid-cols-3 mb-4">
               <TabsTrigger value="desktop">
                 <Monitor className="mr-2" /> Desktop
@@ -93,33 +93,41 @@ export default function LandingPage() {
                 <Smartphone className="mr-2" /> Mobile
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="desktop" className="border rounded-lg p-4">
-              <Image
-                src="/desktop.png"
-                alt="YouTube Thumbnail Preview App Interface on Desktop"
-                width={1200}
-                height={675}
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </TabsContent>
-            <TabsContent value="tablet" className="border rounded-lg p-4">
-              <Image
-                src="/tablet.png"
-                alt="YouTube Thumbnail Preview App Interface on Desktop"
-                width={1200}
-                height={675}
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </TabsContent>
-            <TabsContent value="mobile" className="border rounded-lg p-4">
-              <Image
-                src="/mobile.png"
-                alt="YouTube Thumbnail Preview App Interface on Desktop"
-                width={1200}
-                height={675}
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-            </TabsContent>
+            <div className="border rounded-lg p-4 bg-white shadow-md">
+              <TabsContent value="desktop" className="mt-0">
+                <div className="aspect-video relative overflow-hidden rounded-md">
+                  <Image
+                    src="/desktop.png"
+                    alt="YouTube Thumbnail Preview App Interface on Desktop"
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md"
+                  />
+                </div>
+              </TabsContent>
+              <TabsContent value="tablet" className="mt-0">
+                <div className="aspect-video relative overflow-hidden rounded-md">
+                  <Image
+                    src="/tablet.png"
+                    alt="YouTube Thumbnail Preview App Interface on Desktop"
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md"
+                  />
+                </div>
+              </TabsContent>
+              <TabsContent value="mobile" className="mt-0">
+                <div className="aspect-video relative overflow-hidden rounded-md">
+                  <Image
+                    src="/mobile.png"
+                    alt="YouTube Thumbnail Preview App Interface on Desktop"
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md"
+                  />
+                </div>
+              </TabsContent>
+            </div>
           </Tabs>
           <p className="text-gray-600 mt-4 text-center">
             Our intuitive interface allows you to upload your thumbnails and
