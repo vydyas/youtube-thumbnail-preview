@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://formatjson.io/sitemap.xml
+Sitemap: https://youtube-thumbnail-preview.vercel.app/sitemap.xml

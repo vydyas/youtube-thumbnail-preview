@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -201,12 +200,6 @@ export default function LandingPage() {
                 <li>Basic analytics</li>
                 <li>Community support</li>
               </ul>
-              <Button
-                size="lg"
-                className="bg-red-600 hover:bg-red-700 text-white w-full rounded-full"
-              >
-                Sign Up Now - It&apos;s Free!
-              </Button>
             </CardContent>
           </Card>
         </motion.section>
