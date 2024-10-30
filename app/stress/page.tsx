@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { create } from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Heart, Sparkles } from "lucide-react";
+import { Moon, Sun, Heart, Sparkles, Volume2, VolumeX } from "lucide-react";
 import Head from "next/head";
 import Script from "next/script";
 
@@ -35,8 +35,12 @@ const jsonLd = {
 export default function ConfettiStressRelief() {
   const [burstCount, setBurstCount] = useState(0);
   const [stressLevel, setStressLevel] = useState(10);
+  const [isMuted, setIsMuted] = useState(false);
+  const [audioError, setAudioError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const confettiRef = useRef<ReturnType<typeof create> | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioBufferRef = useRef<AudioBuffer | null>(null);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -60,53 +64,84 @@ export default function ConfettiStressRelief() {
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
+    // Initialize AudioContext and load audio
+    audioContextRef.current = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
+    fetch("/pop.mp3")
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) =>
+        audioContextRef.current!.decodeAudioData(arrayBuffer)
+      )
+      .then((audioBuffer) => {
+        audioBufferRef.current = audioBuffer;
+      })
+      .catch((error) => {
+        console.error("Audio loading failed:", error);
+        setAudioError("Failed to load audio file");
+      });
+
     return () => {
       document.body.removeChild(canvas);
       window.removeEventListener("resize", resizeCanvas);
       if (confettiRef.current) {
         confettiRef.current.reset();
       }
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
     };
   }, []);
 
-  const popConfetti = (origin: { x: number; y: number }) => {
-    if (confettiRef.current) {
-      const isEdge =
-        origin.x === 0 || origin.x === 1 || origin.y === 0 || origin.y === 1;
-      const burstCount = isEdge ? 5 : 1;
-      const particleCount = isEdge ? 300 : 1500;
-      const spread = isEdge ? 180 : 360;
-      const startVelocity = isEdge ? 45 : 25;
-
-      for (let i = 0; i < burstCount; i++) {
-        setTimeout(() => {
-          confettiRef.current!({
-            particleCount,
-            spread,
-            origin: {
-              x: origin.x + (Math.random() - 0.5) * 0.4,
-              y: origin.y + (Math.random() - 0.5) * 0.4,
-            },
-            colors: CONFETTI_COLORS,
-            scalar: 0.8,
-            gravity: 1,
-            drift: isEdge ? 2 : 0,
-            ticks: 300,
-            shapes: ["square", "circle"],
-            startVelocity,
-          });
-        }, i * 150);
-      }
+  const playPopSound = useCallback(() => {
+    if (!isMuted && audioContextRef.current && audioBufferRef.current) {
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = audioBufferRef.current;
+      source.connect(audioContextRef.current.destination);
+      source.start(audioContextRef.current.currentTime);
     }
-  };
+  }, [isMuted]);
 
-  const handleRelease = (x: number, y: number) => {
-    popConfetti({ x, y });
-    setBurstCount((prevCount) => prevCount + 1);
-    setStressLevel((prevLevel) => Math.max(0, prevLevel - 1));
-  };
+  const popConfetti = useCallback(
+    (origin: { x: number; y: number }) => {
+      if (confettiRef.current && audioContextRef.current) {
+        const isEdge =
+          origin.x === 0 || origin.x === 1 || origin.y === 0 || origin.y === 1;
+        const particleCount = isEdge ? 300 : 1500;
+        const spread = isEdge ? 180 : 360;
+        const startVelocity = isEdge ? 45 : 25;
 
-  const handleBigRelease = () => {
+        playPopSound();
+
+        confettiRef.current({
+          particleCount,
+          spread,
+          origin: {
+            x: origin.x + (Math.random() - 0.5) * 0.4,
+            y: origin.y + (Math.random() - 0.5) * 0.4,
+          },
+          colors: CONFETTI_COLORS,
+          scalar: 0.8,
+          gravity: 1,
+          drift: isEdge ? 2 : 0,
+          ticks: 300,
+          shapes: ["square", "circle"],
+          startVelocity,
+        });
+      }
+    },
+    [playPopSound]
+  );
+
+  const handleRelease = useCallback(
+    (x: number, y: number) => {
+      popConfetti({ x, y });
+      setBurstCount((prevCount) => prevCount + 1);
+      setStressLevel((prevLevel) => Math.max(0, prevLevel - 1));
+    },
+    [popConfetti]
+  );
+
+  const handleBigRelease = useCallback(() => {
     const positions = [
       { x: 0, y: 0 },
       { x: 0.5, y: 0 },
@@ -122,25 +157,30 @@ export default function ConfettiStressRelief() {
     positions.forEach((pos, index) => {
       setTimeout(() => {
         popConfetti(pos);
-      }, index * 200);
+      }, index * 200); // Increased delay to 200ms between pops for a more distinct sound
     });
 
     setBurstCount((prevCount) => prevCount + 9);
     setStressLevel(0);
-  };
+  }, [popConfetti]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     if (confettiRef.current) {
       confettiRef.current.reset();
     }
     setBurstCount(0);
     setStressLevel(10);
-  };
+  }, []);
 
-  const getStressLevelColor = () => {
+  const getStressLevelColor = useCallback(() => {
     const hue = ((10 - stressLevel) * 12) % 360;
     return `hsl(${hue}, 70%, 50%)`;
-  };
+  }, [stressLevel]);
+
+  const toggleMute = useCallback(() => {
+    setIsMuted((prev) => !prev);
+    setAudioError(null); // Clear any previous audio errors when toggling mute
+  }, []);
 
   const stressReleaseButtons = [
     {
@@ -222,17 +262,34 @@ export default function ConfettiStressRelief() {
                   Pop away your stress with colorful confetti!
                 </CardDescription>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              >
-                <Sun className="h-[1.5rem] w-[1.3rem] dark:hidden" />
-                <Moon className="hidden h-5 w-5 dark:block" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
+              <div className="flex space-x-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleMute}
+                  aria-label={isMuted ? "Unmute sound" : "Mute sound"}
+                >
+                  {isMuted ? (
+                    <VolumeX className="h-5 w-5" />
+                  ) : (
+                    <Volume2 className="h-5 w-5" />
+                  )}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                >
+                  <Sun className="h-[1.5rem] w-[1.3rem] dark:hidden" />
+                  <Moon className="hidden h-5 w-5 dark:block" />
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-6">
+              {audioError && (
+                <div className="text-red-500 text-center">{audioError}</div>
+              )}
               <section className="text-center space-y-2">
                 <h2 className="text-xl font-semibold">Current Stress Level:</h2>
                 <div

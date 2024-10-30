@@ -15,19 +15,6 @@ export function SignInModal({ children }: SignInModalProps) {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
-        {/* <SignIn afterSignInUrl="/" routing="hash"></SignIn> */}
-        {/* <SignIn
-          routing="hash"
-          redirectUrl="/"
-          afterSignInUrl="/"
-          appearance={{
-            elements: {
-              formButtonPrimary:
-                "bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600 transition-all duration-200 ease-in-out transform hover:scale-105",
-            },
-          }}
-        /> */}
-
         <SignInButton>
           <Button
             variant="outline"
