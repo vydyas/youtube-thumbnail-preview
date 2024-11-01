@@ -3,7 +3,6 @@ import "./globals.css";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
-import { MobileWarning } from "@/components/mobile-warning";
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
@@ -51,8 +50,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <MobileWarning />
-
             {children}
           </ThemeProvider>
         </body>

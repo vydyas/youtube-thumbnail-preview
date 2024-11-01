@@ -13,6 +13,7 @@ import YouTubeLogo from "./YoutubeLogo";
 import { Skeleton } from "@/components/ui/skeleton";
 import dynamic from "next/dynamic";
 import ThumbnailTesterSidebar from "@/components/Sidebar";
+import { MobileWarning } from "@/components/mobile-warning";
 
 const LazyVideoCard = dynamic(() => import("./VideoCard"), {
   loading: () => <VideoCardSkeleton />,
@@ -299,6 +300,7 @@ export default function YouTubeClone() {
 
   return (
     <div className="flex flex-col sm:flex-row flex-1 overflow-hidden">
+      <MobileWarning></MobileWarning>
       <aside
         className="w-64 overflow-y-auto border-r border-border h-full"
         style={{
