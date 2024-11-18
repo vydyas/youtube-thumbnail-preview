@@ -1,8 +1,6 @@
-import { AuthSidebar } from "@/components/AuthSidebar";
 import { useUser } from "@clerk/nextjs";
 import { ImageUploadArea } from "@/components/image-upload-area";
 import { AnimatedThumbnail } from "@/components/animated-thumbnail";
-import { SignInModal } from "@/components/SignInModal";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
@@ -115,58 +113,8 @@ export default function ThumbnailTesterSidebar({
         <h2 className="text-lg font-semibold mb-2">Thumbnails</h2>
 
         <div className="grid grid-cols-2 gap-5 mb-4">
-          {isSignedIn ? (
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Card className="relative cursor-pointer flex items-center justify-center">
-                  <CardContent className="p-0">
-                    <div className="h-14 flex items-center justify-center border-muted-foreground rounded-lg">
-                      <Plus className="h-6 w-6 text-muted-foreground" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Upload Thumbnail</DialogTitle>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="title" className="text-right">
-                      Title
-                    </Label>
-                    <Input
-                      id="title"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      className="col-span-3"
-                    />
-                  </div>
-                  <ImageUploadArea
-                    onFileSelect={handleFileSelect}
-                    disabled={!isSignedIn}
-                  />
-                  {image && (
-                    <div className="mt-4">
-                      <img
-                        src={image}
-                        alt="Selected thumbnail"
-                        className="w-20 h-14"
-                      />
-                    </div>
-                  )}
-                </div>
-                <Button
-                  onClick={handleUpload}
-                  disabled={!isSignedIn}
-                  className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
-                >
-                  {isSignedIn ? "Upload" : "Sign in to Upload"}
-                </Button>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <SignInModal>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
               <Card className="relative cursor-pointer flex items-center justify-center">
                 <CardContent className="p-0">
                   <div className="h-14 flex items-center justify-center border-muted-foreground rounded-lg">
@@ -174,8 +122,47 @@ export default function ThumbnailTesterSidebar({
                   </div>
                 </CardContent>
               </Card>
-            </SignInModal>
-          )}
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Upload Thumbnail</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="title" className="text-right">
+                    Title
+                  </Label>
+                  <Input
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="col-span-3"
+                  />
+                </div>
+                <ImageUploadArea
+                  onFileSelect={handleFileSelect}
+                  disabled={!isSignedIn}
+                />
+                {image && (
+                  <div className="mt-4">
+                    <img
+                      src={image}
+                      alt="Selected thumbnail"
+                      className="w-20 h-14"
+                    />
+                  </div>
+                )}
+              </div>
+              <Button
+                onClick={handleUpload}
+                disabled={!isSignedIn}
+                className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
+              >
+                {isSignedIn ? "Upload" : "Sign in to Upload"}
+              </Button>
+            </DialogContent>
+          </Dialog>
+
           {thumbnails.map((thumbnail) => (
             <AnimatedThumbnail
               key={thumbnail.id}
@@ -202,8 +189,6 @@ export default function ThumbnailTesterSidebar({
           Randomized
         </Button>
       </div>
-
-      <AuthSidebar />
     </div>
   );
 }
