@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/nextjs";
 import { ImageUploadArea } from "@/components/image-upload-area";
 import { AnimatedThumbnail } from "@/components/animated-thumbnail";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -56,13 +55,8 @@ export default function ThumbnailTesterSidebar({
   );
   const [image, setImage] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { isSignedIn } = useUser();
 
   const handleUpload = () => {
-    if (!isSignedIn) {
-      alert("Please sign in to upload thumbnails");
-      return;
-    }
     if (title && image) {
       onImageUpload(title, image);
       setTitle("Some Random Title Which Is Temporary");
@@ -141,7 +135,7 @@ export default function ThumbnailTesterSidebar({
                 </div>
                 <ImageUploadArea
                   onFileSelect={handleFileSelect}
-                  disabled={!isSignedIn}
+                  disabled={false}
                 />
                 {image && (
                   <div className="mt-4">
@@ -155,10 +149,9 @@ export default function ThumbnailTesterSidebar({
               </div>
               <Button
                 onClick={handleUpload}
-                disabled={!isSignedIn}
                 className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white border-none font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-white"
               >
-                {isSignedIn ? "Upload" : "Sign in to Upload"}
+               Upload
               </Button>
             </DialogContent>
           </Dialog>
